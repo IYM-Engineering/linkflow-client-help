@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkFlow Help Center</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ink: #1C2333;
+    --ink-soft: #545B6E;
+    --paper: #F6F4EC;
+    --card: #FCFBF6;
+    --line: #DDD6C4;
+    --linkedin: #0A5C8A;
+    --linkedin-soft: #E7F0F4;
+    --ghl: #1F7A5C;
+    --ghl-soft: #E6F3EC;
+    --amber: #A15C1E;
+    --amber-soft: #FBF0E2;
+    --good: #1E7A3D;
+    --bad: #A33A3A;
+    --code-bg: #EFEAD9;
+    --shadow: 0 1px 2px rgba(28,35,51,0.04), 0 8px 24px rgba(28,35,51,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #EAE6D9;
+      --ink-soft: #A9A796;
+      --paper: #14181F;
+      --card: #1B212B;
+      --line: #2B3140;
+      --linkedin: #6BB2DD;
+      --linkedin-soft: #1B2E3A;
+      --ghl: #5FCBA3;
+      --ghl-soft: #172A23;
+      --amber: #E0A165;
+      --amber-soft: #2E2418;
+      --good: #4FBE7C;
+      --bad: #E08080;
+      --code-bg: #232A36;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #EAE6D9;
+    --ink-soft: #A9A796;
+    --paper: #14181F;
+    --card: #1B212B;
+    --line: #2B3140;
+    --linkedin: #6BB2DD;
+    --linkedin-soft: #1B2E3A;
+    --ghl: #5FCBA3;
+    --ghl-soft: #172A23;
+    --amber: #E0A165;
+    --amber-soft: #2E2418;
+    --good: #4FBE7C;
+    --bad: #E08080;
+    --code-bg: #232A36;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .eyebrow, nav, .tag, .field-name, code, pre, .stage-label {
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  }
+  code, pre, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+
+  a { color: var(--linkedin); }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 236px minmax(0, 760px);
+    gap: 56px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+    justify-content: center;
+  }
+  @media (max-width: 880px) {
+    .shell { grid-template-columns: minmax(0, 1fr); padding: 28px 18px 72px; }
+    .toc { position: static !important; order: 2; margin-top: 40px; }
+  }
+
+  header.masthead {
+    grid-column: 1 / -1;
+    max-width: 760px;
+    margin: 0 auto 8px;
+    text-align: left;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--linkedin); }
+  .eyebrow .dot.ghl { background: var(--ghl); }
+  h1.title {
+    font-size: clamp(30px, 4vw, 40px);
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  p.dek {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 28px;
+  }
+  .masthead-meta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-family: "Archivo", sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+  nav.toc {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    font-size: 13.5px;
+  }
+  nav.toc .toc-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  nav.toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: toc;
+    border-left: 1px solid var(--line);
+  }
+  nav.toc li { counter-increment: toc; }
+  nav.toc a {
+    display: block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 7px 0 7px 16px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--ink); border-left-color: var(--line); }
+  nav.toc a::before {
+    content: counter(toc, decimal-leading-zero) "  ";
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+
+  main { min-width: 0; }
+  section { margin-bottom: 56px; scroll-margin-top: 28px; }
+  section > h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  section > .section-sub {
+    font-family: "Archivo", sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--linkedin);
+    margin: 0 0 14px;
+  }
+  section p { margin: 0 0 14px; max-width: 66ch; }
+  section ul, section ol.steps { margin: 0 0 14px; padding-left: 22px; }
+  section li { margin-bottom: 6px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+  }
+
+  .workflow {
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .workflow-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .workflow-head h3 { font-size: 17px; margin: 0; font-weight: 700; }
+  .trigger-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    background: var(--linkedin-soft);
+    color: var(--linkedin);
+    padding: 3px 9px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  .workflow p.desc { color: var(--ink-soft); font-size: 15px; margin: 6px 0 0; }
+  table.fields {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-bottom: 12px;
+  }
+  table.fields th {
+    text-align: left;
+    font-family: "Archivo", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0 10px 6px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  table.fields td {
+    padding: 7px 10px 7px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.fields tr:last-child td { border-bottom: none; }
+  table.fields .field-name { color: var(--ink); font-weight: 500; font-size: 13px; }
+
+  .recipe {
+    padding: 20px 24px;
+    margin: 18px 0 0;
+  }
+  .recipe .step {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .recipe .step:last-child { margin-bottom: 0; }
+  .recipe .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding-top: 2px;
+  }
+  .recipe .step-body p { margin: 0 0 4px; font-size: 14.5px; }
+  .recipe code.inline {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+
+  .tracker {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 18px 0 8px;
+  }
+  .tracker .stage {
+    position: relative;
+    padding: 16px 14px 14px;
+    border-top: 3px solid var(--line);
+    background: var(--card);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .tracker .stage:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+  .tracker .stage:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-right: 1px solid var(--line); }
+  .tracker .stage + .stage { border-left: none; }
+  .tracker .stage:nth-child(1) { border-top-color: var(--linkedin); }
+  .tracker .stage:nth-child(2) { border-top-color: var(--ghl); }
+  .tracker .stage:nth-child(3) { border-top-color: var(--good); }
+  .tracker .stage:nth-child(4) { border-top-color: var(--amber); }
+  .tracker .stage-label { font-size: 12.5px; font-weight: 700; margin-bottom: 6px; }
+  .tracker .stage-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+  @media (max-width: 620px) {
+    .tracker { grid-template-columns: 1fr; }
+    .tracker .stage { border-left: 3px solid var(--line); border-top: 1px solid var(--line); border-radius: 0 !important; }
+    .tracker .stage:nth-child(1) { border-left-color: var(--linkedin); }
+    .tracker .stage:nth-child(2) { border-left-color: var(--ghl); }
+    .tracker .stage:nth-child(3) { border-left-color: var(--good); }
+    .tracker .stage:nth-child(4) { border-left-color: var(--amber); }
+    .tracker .stage + .stage { border-top: none; }
+  }
+
+  .callout {
+    border-left: 3px solid var(--amber);
+    background: var(--amber-soft);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  .callout .callout-label {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 5px;
+  }
+  .callout p { margin: 0; max-width: none; }
+  .callout p + p { margin-top: 8px; }
+
+  .stat-defs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin: 16px 0;
+  }
+  @media (max-width: 560px) { .stat-defs { grid-template-columns: 1fr; } }
+  .stat-defs dt {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .stat-defs dd {
+    margin: 2px 0 0;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .badge-good { color: var(--good); font-weight: 600; }
+  .badge-bad { color: var(--bad); font-weight: 600; }
+
+  .faq-item { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item h3 { font-size: 15.5px; margin: 0 0 6px; font-weight: 700; }
+  .faq-item p { font-size: 14.5px; margin: 0; }
+
+  .video-slot {
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    background: var(--card);
+    margin-bottom: 14px;
+  }
+  .video-slot .video-label { font-family: "Archivo", sans-serif; font-weight: 700; font-size: 13.5px; margin-bottom: 4px; }
+  .video-slot .video-status { font-size: 12.5px; color: var(--ink-soft); font-family: "Archivo", sans-serif; }
+
+  .help-cta {
+    text-align: center;
+    padding: 26px 20px;
+    margin-top: 8px;
+  }
+  .help-cta p { max-width: none; margin: 0 0 4px; }
+  .help-cta .help-cta-sub { color: var(--ink-soft); font-size: 14px; }
+
+  footer.page-footer {
+    grid-column: 1 / -1;
+    max-width: 760px;
+    margin: 24px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-family: "Archivo", sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header class="masthead">
+    <div class="eyebrow"><span class="dot"></span>LinkedIn <span class="dot ghl" style="margin-left:6px"></span>Your CRM</div>
+    <h1 class="title">LinkFlow Help Center</h1>
+    <p class="dek">LinkFlow is Ignite Your Marketing's LinkedIn growth engine — it connects your LinkedIn account to your CRM so outreach, follow-up, and knowing who's actually engaging happens automatically. This page explains what it's doing, what to expect, and what each part of your dashboard means.</p>
+    <div class="masthead-meta">
+      <span>Product: <strong>LinkFlow</strong></span>
+      <span>For: <strong>LinkFlow users</strong></span>
+      <span>Questions? <strong>Ask your account manager</strong></span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#connect">Connecting Your Account</a></li>
+      <li><a href="#team">Multiple Team Members</a></li>
+      <li><a href="#dedup">When Two Teammates Reach the Same Person</a></li>
+      <li><a href="#features">What LinkFlow Does For You</a></li>
+      <li><a href="#limits">Why Sending Is Paced</a></li>
+      <li><a href="#pipeline">The Outreach Pipeline</a></li>
+      <li><a href="#engagement">Post Engagement Signals</a></li>
+      <li><a href="#revenue">Revenue Attribution</a></li>
+      <li><a href="#dashboard">Reading Your Dashboard</a></li>
+      <li><a href="#alerts">Alerts You Might Receive</a></li>
+      <li><a href="#faq">Troubleshooting</a></li>
+      <li><a href="#videos">Video Walkthroughs</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Once your LinkedIn account is connected, LinkFlow works quietly in the background: sending and pacing outreach, reading and classifying replies, pulling profile details onto your contacts, and surfacing new leads and engagement — all of it landing right in your CRM as ordinary contacts, tags, and pipeline stages. There's no separate app to check.</p>
+      <p>This page is your reference for how it all works day to day. Your <strong>LinkedIn Activity</strong> tab is where you'll actually use it.</p>
+    </section>
+
+    <section id="connect">
+      <h2>Connecting Your Account</h2>
+      <div class="section-sub">One LinkedIn login per person</div>
+      <p>Open the onboarding link while logged into your own CRM account and click <strong>Connect your LinkedIn account</strong>. This opens LinkedIn's own login screen — LinkFlow never sees or stores your LinkedIn password, only a session token issued after you log in. Once connected, your LinkedIn Activity tab shows your connected status and name, plus who else on your team is already connected.</p>
+      <p>If your connection is ever lost — a changed password, a LinkedIn security checkpoint, a manual disconnect — you'll get an alert naming your account specifically, rather than outreach just quietly stopping (see <a href="#alerts">Alerts You Might Receive</a>).</p>
+      <div class="callout">
+        <div class="callout-label">One real LinkedIn login, one active connection</div>
+        <p>Your LinkedIn account can only be actively connected in one place at a time. This protects your account: daily sending limits and the new-account ramp-up (see <a href="#limits">Why Sending Is Paced</a>) are tracked per connection, so running the same login through two connections at once would quietly double the real activity LinkedIn sees on your account.</p>
+      </div>
+      <p>Reconnecting after a disconnect restarts your two-week ramp-up from day one — see <a href="#limits">Why Sending Is Paced</a>. That's intentional: a fresh reconnect is exactly when LinkedIn's own restriction detection is watching most closely.</p>
+    </section>
+
+    <section id="team">
+      <h2>Multiple Team Members</h2>
+      <div class="section-sub">Assigned leads and shared pools, handled automatically</div>
+      <p>If more than one person on your team does LinkedIn outreach, each person connects their own account, and LinkFlow automatically figures out whose account should send a given message or connection request — no manual routing needed.</p>
+      <ol class="steps">
+        <li><strong>Assigned leads.</strong> If a contact has an Assigned User in your CRM, outreach to them goes out under that same person's own connected LinkedIn account.</li>
+        <li><strong>Shared or unassigned leads.</strong> If a contact isn't assigned to anyone, LinkFlow sends from whichever connected teammate has done the least of that action in the last 24 hours — spreading a shared pool of leads across the team automatically.</li>
+      </ol>
+      <div class="callout">
+        <div class="callout-label">Safety limits are per person</div>
+        <p>Three connected teammates means three independent daily allowances — not one shared cap split three ways. A team of three can safely send roughly three times the outreach of a solo account.</p>
+      </div>
+      <p>Replies are also handled per person: if a lead's conversation started on Sarah's LinkedIn account, a reply always goes back out through Sarah's account — conversations never cross between teammates.</p>
+    </section>
+
+    <section id="dedup">
+      <h2>When Two Teammates Reach the Same Person</h2>
+      <div class="section-sub">Duplicate outreach is held, not sent</div>
+      <p>On a team with several connected accounts, it's possible for two teammates to end up targeting the same LinkedIn profile — usually overlapping contact lists, occasionally two people genuinely working the same lead. Either way, that person hearing from two people at the same company in a short window is more likely to ignore or report one of the messages, and a report or decline affects the standing of whoever sent it.</p>
+      <p>LinkFlow checks for this automatically before sending a new connection request. If a different connected teammate already contacted that same profile in the last 30 days, the new outreach is held rather than sent, and you'll get an email explaining who already reached out and when.</p>
+      <ol class="steps">
+        <li>The email links to a page laying out the situation.</li>
+        <li><strong>Cancel</strong> leaves it there — the recommended choice in most cases, letting the teammate who already reached out continue that conversation.</li>
+        <li><strong>Send anyway</strong> queues the outreach normally, for the cases where reaching out separately is genuinely the right call. This is your judgment call, not a hard block.</li>
+      </ol>
+      <div class="callout">
+        <div class="callout-label">Only for new connection requests</div>
+        <p>This only applies to a fresh connection request — your own message to someone you're already connected to (including replying to an inbound conversation) is never held. The hold link works for 7 days before it expires.</p>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>What LinkFlow Does For You</h2>
+      <div class="section-sub">Set up once by your account manager, then it just runs</div>
+      <p>Your account manager configures which of these are active for you. Here's what each one actually does.</p>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>Automatic Outreach Sequences</h3></div>
+        <p class="desc">A connection request followed by smart, spaced-out follow-ups — sent once, then handled automatically from there. There are a few styles depending on how warm the relationship already is: a gentle single follow-up for warmer or more senior contacts, a standard multi-step sequence for general outreach, a more persistent sequence for high-volume prospecting, and a personalized sequence that references someone's recent LinkedIn post or your mutual connections. A sequence never talks over someone who's already replied.</p>
+      </div>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>Finding New Leads</h3></div>
+        <p class="desc">LinkFlow can run a structured LinkedIn search — by location, industry, job title, company, or how closely connected someone already is — and import matching people straight into your CRM as new contacts, ready to work.</p>
+      </div>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>Filling In LinkedIn Details Automatically</h3></div>
+        <p class="desc">For a contact that already has a LinkedIn URL, LinkFlow can pull their headline, location, and connection count onto the contact record. For a lead that only ever gave a name and email, it can find and attach their LinkedIn profile automatically — but only when it's a high-confidence match, never a guess.</p>
+      </div>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>Reading Your Replies For You</h3></div>
+        <p class="desc">Every inbound LinkedIn reply is automatically read and classified — interested, has a question, objecting, not interested — and tagged on the contact instantly, so you know at a glance which replies matter without reading every single one yourself.</p>
+      </div>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>AI-Drafted Replies — You Always Send Them</h3></div>
+        <p class="desc">For a promising reply, LinkFlow can draft a suggested response using the prospect's own message. It's always clearly labeled "review before sending" and attached to your alert — LinkFlow never sends a reply on its own. You read it, edit if you want, and send it yourself.</p>
+      </div>
+
+      <div class="card workflow">
+        <div class="workflow-head"><h3>Staying in Touch With Your Existing Network</h3></div>
+        <p class="desc">For people you're already connected to, LinkFlow can endorse one of their real LinkedIn skills as a light, genuine touchpoint — the kind of small gesture that keeps a relationship warm without ever feeling like a sales pitch.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Have a large existing list?</div>
+        <p>If you have an existing list of hundreds or thousands of contacts you'd like matched to their LinkedIn profiles (and optionally queued for outreach), ask your account manager — this runs as a batch behind the scenes. Because daily sending limits still apply, a very large list is worked through gradually over days or weeks by design, not all at once.</p>
+      </div>
+    </section>
+
+    <section id="limits">
+      <h2>Why Sending Is Paced</h2>
+      <p>Every send is queued and spaced out rather than firing immediately — this is what keeps your connected account in good standing with LinkedIn.</p>
+      <div class="callout">
+        <div class="callout-label">Why this can't just be turned up</div>
+        <p>LinkedIn restricts accounts based on activity patterns, not a published quota. Bursty or perfectly-regular automated sending is what gets an account flagged, more than moderate volume itself. The defaults below reflect safe volume, especially for accounts without an established sending history.</p>
+      </div>
+      <div class="stat-defs">
+        <dt>Connection requests</dt><dd>Up to 15 per day, per connected account, at full ramp</dd>
+        <dt>Messages</dt><dd>Up to 30 per day, per connected account, at full ramp</dd>
+        <dt>Send timing</dt><dd>Randomized delay between sends — never a fixed interval</dd>
+        <dt>Over the cap</dt><dd>Extra requests queue for the next day rather than being lost</dd>
+      </div>
+      <div class="callout">
+        <div class="callout-label">New accounts ramp up over two weeks</div>
+        <p>A newly connected account starts well below the caps above and ramps up automatically as it ages — roughly a third of the full cap in week one, two-thirds in week two, full volume from day 14 on. This is per person, based on when their own account was connected.</p>
+        <p>Reconnecting after any disconnected period restarts this ramp from day one, even for an account that had already reached full volume.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-label">A low acceptance rate lowers the cap automatically</div>
+        <p>LinkedIn itself throttles invite capacity when too many connection requests go unaccepted or get marked as spam. LinkFlow watches the same 30-day acceptance rate shown on your dashboard, and if it drops below 30% (with enough sends to be a meaningful sample), your daily connection-request cap is automatically cut in half until it recovers — no action needed on your end either way, though it's a good moment to review your target list or message wording.</p>
+      </div>
+    </section>
+
+    <section id="pipeline">
+      <h2>The Outreach Pipeline</h2>
+      <p>Every contact who's had a connection request sent, a message sent, or who replies, appears as an Opportunity in your <strong>LinkedIn Outreach</strong> pipeline — separate from your regular sales pipeline. This is the fastest way to see who needs a reply.</p>
+      <div class="tracker">
+        <div class="stage">
+          <div class="stage-label">Outreach Sent</div>
+          <div class="stage-desc">A connection request just went out. Nothing to do yet.</div>
+        </div>
+        <div class="stage">
+          <div class="stage-label">Connected — Awaiting Reply</div>
+          <div class="stage-desc">They accepted. No message from them yet.</div>
+        </div>
+        <div class="stage">
+          <div class="stage-label">Replied — Needs Response</div>
+          <div class="stage-desc">They messaged back. This is the column to check daily.</div>
+        </div>
+        <div class="stage">
+          <div class="stage-label">No Response (Stale)</div>
+          <div class="stage-desc">21+ days with no acceptance — see note below.</div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Why "Stale," not "Declined"</div>
+        <p>LinkedIn never tells the sender when an invite is declined — by design, to avoid the awkwardness of a visible rejection. "Ignored," "declined," and "quietly expired" all look identical from the outside. Stale is a 21-day time-based estimate, not a confirmed decline — if someone accepts after landing in Stale, they move to Connected automatically.</p>
+      </div>
+    </section>
+
+    <section id="engagement">
+      <h2>Post Engagement Signals</h2>
+      <div class="section-sub">A passive signal — nothing is sent, so none of the sending limits apply</div>
+      <p>LinkFlow watches your recent posts for new comments and reactions and treats them as inbound interest. Every new engager gets a contact created (or matched, if they're already one) and tagged:</p>
+      <div class="stat-defs">
+        <dt><code class="mono">linkedin-post-comment</code></dt><dd>Someone commented — the stronger signal</dd>
+        <dt><code class="mono">linkedin-post-reaction</code></dt><dd>Someone liked/reacted — weaker and much higher-volume, so it's tag-only</dd>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Comments get a pipeline, reactions don't</div>
+        <p>A comment additionally creates an opportunity in a separate <strong>LinkedIn Engagement</strong> pipeline, so it can actually be worked rather than just sitting as a tag. If that person engages again, they're automatically promoted toward your real leads pipeline. If nothing further happens for a couple of weeks, they move to a Cold stage instead — nothing is ever deleted, a quiet contact just sits there rather than being lost.</p>
+      </div>
+      <p>A daily digest summarizes new comments and reactions (skipped entirely on a day with nothing new) — see <a href="#alerts">Alerts You Might Receive</a>.</p>
+    </section>
+
+    <section id="revenue">
+      <h2>Revenue Attribution</h2>
+      <div class="section-sub">How much of your closed revenue actually traces back to LinkedIn</div>
+      <p>For every contact LinkFlow has ever reached out to on LinkedIn, it checks whether any of their deals eventually closed <strong>Won</strong>, and totals that against your overall won revenue. This shows up on your dashboard once at least one LinkedIn-sourced deal has closed — see <a href="#dashboard">Reading Your Dashboard</a>.</p>
+    </section>
+
+    <section id="dashboard">
+      <h2>Reading Your Dashboard</h2>
+      <p>Your <strong>LinkedIn Activity</strong> tab shows rolling 7- and 30-day activity. If you have several connected teammates, every number here is already summed across all of them — the "Connected Team" list at the bottom shows whose activity is being counted.</p>
+      <div class="stat-defs">
+        <dt>Messages Sent / Connection Requests</dt><dd>Raw outbound counts for the window, across your whole connected team</dd>
+        <dt>Connections Accepted</dt><dd>Acceptances recorded in that window (can lag up to ~8 hours behind the real acceptance)</dd>
+        <dt>Acceptance Rate</dt><dd><span class="badge-good">30%+ reads as healthy</span> · <span class="badge-bad">under 30% automatically halves that account's daily connection-request cap</span> until it recovers</dd>
+        <dt>Failed Sends</dt><dd>Only shown when non-zero in the last 7 days — worth a look if it appears</dd>
+        <dt>LinkedIn-Sourced Revenue</dt><dd>Only shown once a LinkedIn-sourced deal has closed Won</dd>
+        <dt>Post Engagement (7 days)</dt><dd>Raw comment/reaction counts, plus a pipeline breakdown if you have the Engagement pipeline set up</dd>
+        <dt>Message &amp; Note Performance</dt><dd>When your outreach uses more than one message or note wording, this shows which version actually gets better acceptance or reply rates</dd>
+      </div>
+    </section>
+
+    <section id="alerts">
+      <h2>Alerts You Might Receive</h2>
+      <p>LinkFlow emails or Slacks you proactively rather than leaving something broken or paused to be noticed on its own.</p>
+      <div class="stat-defs">
+        <dt>LinkedIn account disconnected</dt><dd>Names the affected account. Reconnecting is the same one-click flow described in <a href="#connect">Connecting Your Account</a>.</dd>
+        <dt>Connection-request cap reduced</dt><dd>Sent when a low acceptance rate automatically halves your daily cap — see <a href="#limits">Why Sending Is Paced</a>.</dd>
+        <dt>Outreach on hold</dt><dd>Sent directly to you when your outreach would double up on a teammate's — see <a href="#dedup">When Two Teammates Reach the Same Person</a>.</dd>
+        <dt>LinkedIn message received</dt><dd>Fires in real time, per message — a DM is a live conversation someone's waiting on. Includes the sender, their profile, and the message. A promising reply also gets an AI-drafted suggested reply attached, clearly labeled "review before sending" — never sent automatically.</dd>
+        <dt>New post engagement digest</dt><dd>A daily summary of new post comments/reactions since the last digest — skipped entirely on a day with nothing new.</dd>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Troubleshooting</h2>
+      <div class="faq-item">
+        <h3>A lead's LinkedIn profile didn't get filled in automatically</h3>
+        <p>LinkFlow intentionally won't guess at a match it isn't confident about. If it's a lead you already know is on LinkedIn, adding a bit more info (like their company) can help it find a confident match next time — or ask your account manager to try again.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A connection request or message is stuck "queued"</h3>
+        <p>This is expected under normal load — see <a href="#limits">Why Sending Is Paced</a>. Check whether today's daily cap has already been used, or whether a recent dip in acceptance rate has triggered an automatic reduction.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A reply isn't showing up in your conversations</h3>
+        <p>Confirm your LinkedIn account still shows Connected on the Activity tab — a silent disconnection is the most common cause, and should have triggered an alert (see above).</p>
+      </div>
+      <div class="faq-item">
+        <h3>Someone accepted a request but hasn't shown up as "Connected" yet</h3>
+        <p>New connections can take up to ~8 hours to register — this is a normal platform delay, not a missed event.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A message went out from the wrong teammate's account</h3>
+        <p>Check the contact's Assigned User first — see <a href="#team">Multiple Team Members</a>. Outreach to an assigned contact always goes out under that person's own account; only unassigned/pooled contacts get spread across the team automatically.</p>
+      </div>
+      <div class="faq-item">
+        <h3>I got an "outreach on hold" email</h3>
+        <p>Expected when two connected teammates would both reach the same LinkedIn profile — see <a href="#dedup">When Two Teammates Reach the Same Person</a>. The email explains who already reached out; choose Cancel or Send Anyway from the link it provides.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A LinkedIn search only returned a handful of leads</h3>
+        <p>Each search is capped, and each LinkedIn account can only run a limited number of searches per day — both limits exist to keep search activity looking like normal, human LinkedIn use. Run another search tomorrow for more.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A post comment never showed up as a pipeline opportunity</h3>
+        <p>Only a comment creates an opportunity in the LinkedIn Engagement pipeline — a reaction/like stays tag-only by design. Also check that this feature has been set up for your account; it's opt-in, same as the outreach pipeline — ask your account manager if you're not sure.</p>
+      </div>
+    </section>
+
+    <section id="videos">
+      <h2>Video Walkthroughs</h2>
+      <p>Recorded walkthroughs go here as they're produced — the same slots also appear on your LinkedIn Activity tab.</p>
+      <div class="video-slot">
+        <div class="video-label">Connecting a LinkedIn Account</div>
+        <div class="video-status">Coming soon</div>
+      </div>
+      <div class="video-slot">
+        <div class="video-label">Working Your Outreach Pipeline Daily</div>
+        <div class="video-status">Coming soon</div>
+      </div>
+    </section>
+
+    <div class="card help-cta">
+      <p><strong>Still have a question this page didn't answer?</strong></p>
+      <p class="help-cta-sub">Reach out to your account manager at Ignite Your Marketing.</p>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    <span>LinkFlow — Ignite Your Marketing</span>
+    <span>Help Center</span>
+  </footer>
+</div>
+
+</body>
+</html>
